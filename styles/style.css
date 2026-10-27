@@ -1,0 +1,74 @@
+/*general*/
+
+/* :root {
+
+} */
+
+body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: white;
+}
+
+img,
+video {
+	display: block;
+	width: auto;
+	height: 100%;
+}
+
+#images {
+	overflow: hidden;
+}
+
+.images-track {
+	display: flex;
+	width: max-content;
+	height: 100%;
+	will-change: transform;
+}
+
+* {
+	box-sizing: border-box;
+	font-size: 10px;
+	line-height: 1.2em;
+}
+
+*::-webkit-scrollbar {
+	display: none;
+}
+
+/*fonts*/
+
+@font-face {
+	font-family: 'Coolkit';
+	src: url('fonts/Coolkit-TRIAL-Regular.woff2') format('woff2');
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+a,
+button {
+	display: block;
+	font-family: 'Coolkit';
+	font-weight: normal;
+	color: black;
+	margin: 0;
+	width: fit-content;
+	/* text-transform: lowercase; */
+}
+
+/*responsive*/
+
+@media (max-width: 1024px) {
+
+	
+
+}
