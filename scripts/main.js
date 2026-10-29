@@ -28,6 +28,15 @@ imagesTrack.querySelectorAll("img").forEach((image) => {
   imagesTrack.append(duplicate);
 });
 
+imagesTrack.querySelectorAll("img").forEach((image) => {
+  const markLoaded = () => image.classList.add("loaded");
+  if (image.complete && image.naturalWidth > 0) {
+    requestAnimationFrame(markLoaded);
+  } else {
+    image.addEventListener("load", markLoaded, { once: true });
+  }
+});
+
 imagesContainer.append(imagesTrack);
 
 const SPEED = 100; // píxeles por segundo

@@ -18,6 +18,15 @@ video {
 	height: 100%;
 }
 
+img {
+	opacity: 0;
+	transition: opacity 500ms;
+}
+
+img.loaded {
+	opacity: 1;
+}
+
 #images {
 	overflow: hidden;
 }
