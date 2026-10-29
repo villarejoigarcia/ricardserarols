@@ -12,18 +12,22 @@ for (let index = shuffledMedia.length - 1; index > 0; index -= 1) {
 
 const imagesFragment = document.createDocumentFragment();
 
-shuffledMedia.forEach(({ src }) => {
+shuffledMedia.forEach(({ src, width, height }) => {
   const image = document.createElement("img");
   image.src = src;
-  imagesFragment.append(image);
+  const wrapper = document.createElement("div");
+  wrapper.className = "image-wrapper";
+  wrapper.style.aspectRatio = `${width} / ${height}`;
+  wrapper.append(image);
+  imagesFragment.append(wrapper);
 });
 
 const imagesTrack = document.createElement("div");
 imagesTrack.className = "images-track";
 imagesTrack.append(imagesFragment);
 
-imagesTrack.querySelectorAll("img").forEach((image) => {
-  const duplicate = image.cloneNode();
+[...imagesTrack.children].forEach((wrapper) => {
+  const duplicate = wrapper.cloneNode(true);
   duplicate.setAttribute("aria-hidden", "true");
   imagesTrack.append(duplicate);
 });

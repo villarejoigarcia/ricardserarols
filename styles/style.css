@@ -18,6 +18,11 @@ video {
 	height: 100%;
 }
 
+.image-wrapper {
+	flex: none;
+	height: 100%;
+}
+
 img {
 	opacity: 0;
 	transition: opacity 500ms;
