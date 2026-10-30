@@ -14,7 +14,8 @@ const imagesFragment = document.createDocumentFragment();
 
 shuffledMedia.forEach(({ src }) => {
   const image = document.createElement("img");
-  image.src = src;
+  image.src = src.replace("images/", "images/thumbs/");
+  image.dataset.full = src;
   const wrapper = document.createElement("div");
   wrapper.className = "image-wrapper";
   wrapper.append(image);
@@ -76,17 +77,52 @@ const imagePreview = document.createElement("div");
 imagePreview.className = "image-preview";
 imagePreview.setAttribute("aria-hidden", "true");
 document.body.append(imagePreview);
+let activeImage = null;
 
-imagesTrack.querySelectorAll("img").forEach((image) => {
-  image.addEventListener("mouseenter", () => {
+const trackImages = imagesTrack.querySelectorAll("img");
+const setDimmed = (dimmed, selectedImage = null) => {
+  trackImages.forEach((img) => {
+    img.classList.toggle("dimmed", dimmed && img !== selectedImage);
+  });
+};
+
+document.addEventListener("click", (event) => {
+  if (!activeImage || event.target.closest(".images-track img")) return;
+  imagePreview.classList.remove("active");
+  imagePreview.replaceChildren();
+  setDimmed(false);
+  activeImage = null;
+});
+
+trackImages.forEach((image) => {
+  const showPreview = () => {
     const previewImage = image.cloneNode();
+    previewImage.src = image.dataset.full;
     imagePreview.replaceChildren(previewImage);
     showWhenLoaded(previewImage);
     imagePreview.classList.add("active");
-  });
+    setDimmed(true, image);
+    activeImage = image;
+  };
 
-  image.addEventListener("mouseleave", () => {
+  const hidePreview = () => {
     imagePreview.classList.remove("active");
     imagePreview.replaceChildren();
+    setDimmed(false);
+    activeImage = null;
+  };
+
+  image.addEventListener("pointerenter", (event) => {
+    if (event.pointerType === "mouse") showPreview();
+  });
+  image.addEventListener("pointerleave", (event) => {
+    if (event.pointerType === "mouse") hidePreview();
+  });
+  image.addEventListener("click", (event) => {
+    if (activeImage === image || (activeImage)) {
+      hidePreview();
+    } else {
+      showPreview();
+    }
   });
 });

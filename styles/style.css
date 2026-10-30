@@ -85,15 +85,11 @@ img.loaded {
 	display: flex;
 	width: max-content;
 	height: 100%;
-	will-change: transform;
+	will-change: opacity, transform;
 }
 
-.images-track:hover img.loaded {
+.images-track img.loaded.dimmed {
 	opacity: .05;
-}
-
-.images-track img.loaded:hover {
-	opacity: 1;
 }
 
 .image-preview {
@@ -118,7 +114,7 @@ img.loaded {
 	visibility: visible;
 }
 
-.images-track img:hover {
+.images-track img {
 	cursor: zoom-in;
 }
 
