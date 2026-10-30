@@ -15,32 +15,10 @@ img,
 video {
 	display: block;
 	width: auto;
-	height: 100%;
-}
-
-.image-wrapper {
-	flex: none;
-	height: 100%;
-}
-
-img {
+	height: 101%;
 	opacity: 0;
-	transition: opacity 500ms;
-}
-
-img.loaded {
-	opacity: 1;
-}
-
-#images {
-	overflow: hidden;
-}
-
-.images-track {
-	display: flex;
-	width: max-content;
-	height: 100%;
-	will-change: transform;
+	transition: opacity 666ms;
+	object-fit: cover;
 }
 
 * {
@@ -58,6 +36,7 @@ img.loaded {
 @font-face {
 	font-family: 'Coolkit';
 	src: url('fonts/Coolkit-TRIAL-Regular.woff2') format('woff2');
+	/* src: url('fonts/Coolkit-TRIAL-Medium.woff2') format('woff2'); */
 }
 
 h1,
@@ -73,14 +52,74 @@ button {
 	display: block;
 	font-family: 'Coolkit';
 	font-weight: normal;
+	/* color: rgb(51,51,51); */
 	color: black;
 	margin: 0;
 	width: fit-content;
 	/* text-transform: lowercase; */
+	/* background-color: white;
+	padding: 0em .5em;
+	border-radius: 100px; */
 }
 
 a:hover {
 	text-decoration: underline;
+}
+
+.image-wrapper {
+	flex: none;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+img.loaded {
+	opacity: 1;
+}
+
+#images {
+	overflow: hidden;
+}
+
+.images-track {
+	display: flex;
+	width: max-content;
+	height: 100%;
+	will-change: transform;
+}
+
+.images-track:hover img.loaded {
+	opacity: .05;
+}
+
+.images-track img.loaded:hover {
+	opacity: 1;
+}
+
+.image-preview {
+	position: fixed;
+	bottom: .25em;
+	left: .25em;
+	z-index: 1;
+	/* z-index: -1; */
+	display: flex;
+	justify-content: center;
+	/* justify-content: center; */
+	align-items: center;
+	visibility: hidden;
+	pointer-events: none;
+	/* padding: .25em; */
+	/* height: 100dvh; */
+	height: calc(100dvh/3*2 - 2.25em);
+	overflow: hidden;
+}
+
+.image-preview.active {
+	visibility: visible;
+}
+
+.images-track img:hover {
+	cursor: zoom-in;
 }
 
 /*responsive*/

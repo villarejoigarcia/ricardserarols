@@ -12,12 +12,11 @@ for (let index = shuffledMedia.length - 1; index > 0; index -= 1) {
 
 const imagesFragment = document.createDocumentFragment();
 
-shuffledMedia.forEach(({ src, width, height }) => {
+shuffledMedia.forEach(({ src }) => {
   const image = document.createElement("img");
   image.src = src;
   const wrapper = document.createElement("div");
   wrapper.className = "image-wrapper";
-  wrapper.style.aspectRatio = `${width} / ${height}`;
   wrapper.append(image);
   imagesFragment.append(wrapper);
 });
@@ -32,18 +31,24 @@ imagesTrack.append(imagesFragment);
   imagesTrack.append(duplicate);
 });
 
-imagesTrack.querySelectorAll("img").forEach((image) => {
-  const markLoaded = () => image.classList.add("loaded");
+const showWhenLoaded = (image) => {
+  const markLoaded = () => {
+    if (image.complete && image.naturalWidth > 0) {
+      image.classList.add("loaded");
+    }
+  };
+
+  image.addEventListener("load", markLoaded, { once: true });
   if (image.complete && image.naturalWidth > 0) {
     requestAnimationFrame(markLoaded);
-  } else {
-    image.addEventListener("load", markLoaded, { once: true });
   }
-});
+};
+
+imagesTrack.querySelectorAll("img").forEach(showWhenLoaded);
 
 imagesContainer.append(imagesTrack);
 
-const SPEED = 100; // píxeles por segundo
+const SPEED = 34; // píxeles por segundo
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const images = [...imagesTrack.children];
 const half = images.length / 2;
@@ -66,3 +71,22 @@ const tick = (time) => {
 };
 
 requestAnimationFrame(tick);
+
+const imagePreview = document.createElement("div");
+imagePreview.className = "image-preview";
+imagePreview.setAttribute("aria-hidden", "true");
+document.body.append(imagePreview);
+
+imagesTrack.querySelectorAll("img").forEach((image) => {
+  image.addEventListener("mouseenter", () => {
+    const previewImage = image.cloneNode();
+    imagePreview.replaceChildren(previewImage);
+    showWhenLoaded(previewImage);
+    imagePreview.classList.add("active");
+  });
+
+  image.addEventListener("mouseleave", () => {
+    imagePreview.classList.remove("active");
+    imagePreview.replaceChildren();
+  });
+});
