@@ -49,7 +49,7 @@ imagesTrack.querySelectorAll("img").forEach(showWhenLoaded);
 
 imagesContainer.append(imagesTrack);
 
-const SPEED = 34; // píxeles por segundo
+const SPEED = 67; // píxeles por segundo
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const images = [...imagesTrack.children];
 const half = images.length / 2;
