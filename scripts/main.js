@@ -14,7 +14,7 @@ const imagesFragment = document.createDocumentFragment();
 
 shuffledMedia.forEach(({ src }) => {
   const image = document.createElement("img");
-  image.src = src.replace("images/", "images/thumbs/");
+  image.src = src;
   image.dataset.full = src;
   const wrapper = document.createElement("div");
   wrapper.className = "image-wrapper";
